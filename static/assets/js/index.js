@@ -45,7 +45,7 @@ $(document).ready(function() {
         }
       }
       $(".hide-when-offline").show();
-      setTimeout(getChatMessages, 500);
+      setTimeout(getChatMessages, 0);
     })
     .fail(function(jqxhr, statusText, errorThrown) {
       console.log("Getting chat failed:", statusText, errorThrown);
