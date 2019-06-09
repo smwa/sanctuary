@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'chat.apps.ChatConfig',
+    'files.apps.FilesConfig',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
 ]
@@ -44,6 +45,7 @@ ROOT_URLCONF = 'sanctuary.urls'
 
 WSGI_APPLICATION = 'sanctuary.wsgi.application'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "FILES")
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

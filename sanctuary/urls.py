@@ -21,5 +21,6 @@ from django.contrib.staticfiles.views import serve
 
 urlpatterns = [
   path('api/chat/', include('chat.urls')),
+  path('api/files/', include('files.urls')),
   url(r'^(?:index.html)?$', serve, kwargs={'path': 'index.html'})
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
