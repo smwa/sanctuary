@@ -6,4 +6,5 @@ class Hash(models.Model):
 
 class File(models.Model):
     label = models.CharField(max_length=64)
+    size = models.IntegerField()
     hash = models.ForeignKey(Hash, on_delete=models.CASCADE)
