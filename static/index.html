@@ -1,1 +1,66 @@
-hello world
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sanctuary</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#FFFFFF">
+
+    <link rel="stylesheet" href="static/lib/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="static/lib/dataTables.bootstrap4.min.css" type="text/css">
+    <link rel="stylesheet" href="static/lib/scroller.bootstrap4.min.css" type="text/css">
+
+    <link rel="manifest" href="static/manifest.json">
+    <link rel="shortcut icon apple-touch-icon" href="static/assets/img/favicon.png" sizes="144x144" type="image/png">
+    <link rel="shortcut icon apple-touch-icon" href="static/assets/img/icon-md.png" sizes="256x256" type="image/png">
+    <link rel="shortcut icon apple-touch-icon" href="static/assets/img/icon-lg.png" sizes="512x512" type="image/png">
+  </head>
+
+  <body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar sticky-top navbar-expand navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img src="static/assets/img/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Sanctuary
+      </a>
+    </nav>
+    <div class='container-fluid'>
+
+      <!-- Chat -->
+      <div class='row hide-when-offline'>
+        <div class='col-lg-8'>
+          <table id="chatTable" class="table table-striped table-bordered" style="width: 100%"></table>
+        </div>
+        <div class='col-lg-4'>
+          <div class="alert alert-warning d-none" role="alert"></div>
+          <form id="chatForm" method="post">
+            <div class="form-group">
+              <label for="sender">Name</label>
+              <input required="required" type="text" size="32" maxlength="64" class="form-control" name="sender" id="sender" placeholder="Enter Name or Handle">
+            </div>
+            <div class="form-group">
+              <label for="body">Message</label>
+              <textarea required="required" class="form-control" id="body" name="body" placeholder="Enter Message" maxlength=255 rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+
+    <!-- End .container -->
+    </div>
+
+    <script src="static/lib/jquery-3.2.1.min.js"></script>
+    <script src="static/lib/bootstrap.min.js"></script>
+    <script src="static/lib/popper.min.js"></script>
+    <script src="static/lib/jquery.dataTables.min.js"></script>
+    <script src="static/lib/dataTables.bootstrap4.min.js"></script>
+    <script src="static/lib/dataTables.scroller.min.js"></script>
+    <script src="static/lib/dataTables.ellipsis.js"></script>
+    <script src="static/assets/js/index.js"></script>
+  </body>
+</html>
