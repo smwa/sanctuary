@@ -19,8 +19,10 @@ $(document).ready(function() {
       {
         'title': 'Actions',
         'render': function(hash){
-          // TODO Create buttons for download, delete, push/isOnServer
-          return hash;
+          return '<div class="btn-group">'
+          + '<button type="button" class="btn btn-secondary" onclick="downloadLocalFile(\'' + hash + '\')">Download</button>'
+          + '<button type="button" class="btn btn-secondary" onclick="deleteLocalFile(\'' + hash + '\')">Remove</button>'
+          + '</div>';
         }
       }
     ]
@@ -86,32 +88,46 @@ $(document).ready(function() {
           var fileReader = new FileReader();
           fileReader.readAsBinaryString(file);
           fileReader.onload = function(e) {
-            var trans = db.transaction(['files', 'hashes'], 'readwrite');
             var hash = md5(e.target.result);
             var fileEntity = {
               'name': file.name,
               'size': file.size,
               'hash': hash
             };
-            // TODO Check if hash is already in store, maybe index will catch it?
-            // TODO Check if file name is already in use
             var hashEntity = {
               'hash': hash,
               'data': e.target.result
             };
-            var addRequestFile = trans.objectStore('files').add(fileEntity);
-            var addRequestHash = trans.objectStore('hashes').add(hashEntity);
-            addRequestFile.onerror = function(eAddReq) {
-              console.log("Failed to store file");
+            var hashExists = false;
+            var fileExists = false;
+            db.transaction("files").objectStore("files").openCursor().onsuccess = function(event) {
+              var cursor = event.target.result;
+              if (cursor) {
+                if (cursor.value.hash === fileEntity.hash) {
+                  hashExists = true;
+                  if (cursor.value.name === fileEntity.name) {
+                    fileExists = true;
+                  }
+                }
+                cursor.continue();
+              }
+              else {
+                if (!fileExists) {
+                  if (!hashExists) {
+                    db.transaction('hashes', 'readwrite').objectStore('hashes').add(hashEntity);
+                  }
+                  var trans = db.transaction('files', 'readwrite');
+                  var addRequestFile = trans.objectStore('files').add(fileEntity);
+                  trans.oncomplete = function(eTrans) {
+                    localTable.row.add([
+                      fileEntity.name,
+                      fileEntity.size,
+                      hash
+                    ]).draw('full-hold');
+                  };
+                }
+              }
             };
-            trans.oncomplete = function(eTrans) {
-              localTable.row.add([
-                fileEntity.name,
-                fileEntity.size,
-                hash
-              ]).draw('full-hold');
-            };
-
           };
         });
       }
@@ -124,3 +140,11 @@ $(document).ready(function() {
   setTimeout(addInitialLocalFiles, 0);
 
 });
+
+function downloadLocalFile(hash) {
+  alert("download " + hash); // TODO
+}
+
+function deleteLocalFile(hash) {
+  alert("delete " + hash); // TODO
+}
