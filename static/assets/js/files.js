@@ -148,3 +148,7 @@ function downloadLocalFile(hash) {
 function deleteLocalFile(hash) {
   alert("delete " + hash); // TODO
 }
+
+function purgeFiles() {
+  alert("purge"); // TODO
+}

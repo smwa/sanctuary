@@ -30,15 +30,18 @@
     </nav>
     <div class='container-fluid'>
 
-      <!-- Local Files -->
+      <!-- Actions -->
       <div class='row'>
         <div class='col-sm-12'>
           <input type="file" id="uploadInput" class="d-none" name="uploadInput[]" multiple />
           <div class="btn-group" role="group" aria-label="Action Buttons">
             <button type="button" id="uploadButton" class="btn btn-secondary">Add Local File</button>
+            <button type="button" onclick="purgeFiles()" class="btn btn-secondary">Purge</button>
           </div>
         </div>
       </div>
+
+      <!-- Local Files -->
       <div class='row'>
         <div class='col-lg-12'>
           <h3>Local Files</h3>
