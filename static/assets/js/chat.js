@@ -7,20 +7,17 @@ $(document).ready(function() {
       'sProcessing': '<div style="top: 0"><img src="static/assets/img/loading.svg"></div>',
     },
     'data': [],
-    'order': [[2, "asc"]],
+    'order': [[1, "asc"]],
     'pageLength': 5,
     'lengthMenu': [[5, 10, 25, 100, -1], [5, 10, 25, 100, "All"]],
     'columns': [
       {
-        'title': 'Message',
-        'render': $.fn.dataTable.render.ellipsis(256)
+        'title': '&nbsp;',
+        'render': $.fn.dataTable.render.ellipsis(170)
       },
       {
-        'title': 'Name',
-        'render': $.fn.dataTable.render.ellipsis(64)
-      },
-      {
-        'title': '#'
+        'title': '#',
+        'visible': false
       }
     ]
   });
@@ -33,8 +30,7 @@ $(document).ready(function() {
       data.messages.forEach(function(message) {
         lastSeenChatId = Math.max(lastSeenChatId, message.id);
         chatTable.row.add([
-          message.body,
-          message.sender,
+          "" + message.sender + ": " + message.body,
           message.id
         ]);
       });
@@ -44,14 +40,17 @@ $(document).ready(function() {
           chatTable.page('last').draw('page');
         }
       }
-      $(".hide-when-offline").show();
-      setTimeout(getChatMessages, 0);
+      $(".hide-when-offline").removeClass('d-none');
+      $(".show-when-offline").addClass('d-none');
+      setTimeout(getChatMessages, 100);
     })
     .fail(function(jqxhr, statusText, errorThrown) {
       console.log("Getting chat failed:", statusText, errorThrown);
       lastSeenChatId = 0;
-      $(".hide-when-offline").hide();
-      setTimeout(getChatMessages, 2000);
+      chatTable.clear().draw();
+      $(".show-when-offline").removeClass('d-none');
+      $(".hide-when-offline").addClass('d-none');
+      setTimeout(getChatMessages, 100);
     });
   }
 
