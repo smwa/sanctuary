@@ -6,3 +6,4 @@
 * Change to dark theme
 * Disable django debug
 * Buy domain
+* Convert size to KB, MB, and GB
