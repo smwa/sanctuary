@@ -18,9 +18,10 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib.staticfiles.views import serve
+from sanctuary.views import index
 
 urlpatterns = [
+  path('', index, name='index'),
   path('api/chat/', include('chat.urls')),
-  path('api/files/', include('files.urls')),
-  url(r'^(?:index.html)?$', serve, kwargs={'path': 'index.html'})
+  path('api/files/', include('files.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

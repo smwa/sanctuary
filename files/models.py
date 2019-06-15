@@ -10,7 +10,7 @@ def uploadTo(root):
 class Hash(models.Model):
     md5 = models.CharField(max_length=40)
     size = models.IntegerField()
-    content = models.FileField(upload_to=uploadTo('uploads/'))
+    content = models.FileField(upload_to=uploadTo('files/'))
 
 class File(models.Model):
     label = models.CharField(max_length=64)
