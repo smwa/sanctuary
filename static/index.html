@@ -28,6 +28,11 @@
         <img src="static/assets/img/icon.svg" width="30" height="30" class="d-inline-block align-top" alt="">
         Sanctuary
       </a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutModal">About</a>
+        </li>
+      </ul>
     </nav>
     <div class='container-fluid'>
 
@@ -35,6 +40,24 @@
       <div class="row show-when-offline mt-4 d-none">
         <div class='col-sm-12'>
           <div class="alert alert-warning" role="alert">You appear to be offline, make sure you're connected to the network, close enough to the device, and try reloading the page.</div>
+        </div>
+      </div>
+
+      <!-- About Modal -->
+      <div class="modal" id="aboutModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Sanctuary Wi-Fi Dead Drop</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><a target="_blank" href="https://sanctuary.com">https://sanctuary.com/</a> is a Wi-Fi Dead Drop. It isn't connected to the internet, but you can connect to it like your internet at home. You can upload files from your computer or phone and others can download them. All files are available for everyone to see, and there's a chat window that is public. This can be used for sending messages to anyone that connects or let you chat anonymously.</p>
+              <p>You can start your own using a Raspberry Pi Zero W, a Micro SD Card, and a battery pack or usb charger. The devices can sync files across different Sanctuaries, either using your browser or by being close to each other. This makes sharing large files between friends or strangers simple.</p>
+            </div>
+          </div>
         </div>
       </div>
 

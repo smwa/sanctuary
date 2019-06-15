@@ -1,5 +1,4 @@
 * Delete files when running out of storage
-* Allow admin deleting
 * Syncing between instances using browsers
 * Syncing between instances with 802.11g
 * Buy domain
