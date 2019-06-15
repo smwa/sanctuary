@@ -5,6 +5,12 @@ import hashlib
 import os
 import mimetypes
 
+for hash in Hash.objects.all():
+  if not os.path.isfile(hash.content.path):
+    for file in hash.file_set.all():
+      file.delete()
+    hash.delete()
+
 def files(request):
   if request.method == 'GET':
     return _get(request)
