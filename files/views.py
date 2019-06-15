@@ -1,4 +1,5 @@
 from django.http import JsonResponse, HttpResponse
+from django.conf import settings
 from files.models import Hash, File
 from time import sleep
 import hashlib
@@ -9,6 +10,7 @@ for hash in Hash.objects.all():
   if not os.path.isfile(hash.content.path):
     for file in hash.file_set.all():
       file.delete()
+    hash.content.delete()
     hash.delete()
 
 def files(request):
@@ -55,6 +57,7 @@ def _post(request):
       file = existingFile
     except File.DoesNotExist:
       file.save()
+    _deleteFilesIfLowOnSpace()
     return JsonResponse({'status': 'Ok'})
   return JsonResponse({'errors': form.errors}, status=400)
 
@@ -69,3 +72,18 @@ def download(request, id):
   response = HttpResponse(file.hash.content, content_type=contentType[0])
   response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
   return response
+
+def _deleteFilesIfLowOnSpace():
+  hashes = Hash.objects.all().order_by("id")
+  while _freeSpaceInGb < settings.MINIMUM_FREE_SPACE_GB and len(hashes) > 0:
+    hash = hashes[0]
+    hashes = hashes[1:]
+    for file in hash.file_set.all():
+      file.delete()
+    hash.content.delete()
+    hash.delete()
+
+def _freeSpaceInGb()
+  statvfs = os.statvfs(settings.BASE_DIR)
+  freespace = statvfs.f_frsize * statvfs.f_bfree
+  freespaceGB = freespace / (1024.0 * 1024.0 * 1024.0)
