@@ -52,7 +52,7 @@ $(document).ready(function() {
         lastSeenFileId = file.id;
         filesTable.row.add([
           file.name,
-          file.size,
+          _formatBytes(file.size),
           file.id
         ]);
       });
@@ -67,6 +67,18 @@ $(document).ready(function() {
       console.log("Getting files failed:", statusText, errorThrown);
       setTimeout(getNewFiles, 100);
     });    
+  }
+
+  function _formatBytes(bytes) {
+    var modifiableBytes = bytes;
+    var sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+    for (size in sizes) {
+      if (bytes < 1024) {
+        return Math.round(bytes) + " " + sizes[size];
+      }
+      bytes /= 1024;
+    }
+    return bytes + " " + sizes[0];
   }
 
   setTimeout(getNewFiles, 0);
