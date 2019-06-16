@@ -75,7 +75,7 @@ def download(request, id):
 
 def _deleteFilesIfLowOnSpace():
   hashes = Hash.objects.all().order_by("id")
-  while _freeSpaceInGb < settings.MINIMUM_FREE_SPACE_GB and len(hashes) > 0:
+  while _freeSpaceInGb() < settings.MINIMUM_FREE_SPACE_GB and len(hashes) > 0:
     hash = hashes[0]
     hashes = hashes[1:]
     for file in hash.file_set.all():
@@ -87,3 +87,4 @@ def _freeSpaceInGb():
   statvfs = os.statvfs(settings.BASE_DIR)
   freespace = statvfs.f_frsize * statvfs.f_bfree
   freespaceGB = freespace / (1024.0 * 1024.0 * 1024.0)
+  return freespaceGB
