@@ -83,7 +83,7 @@ def _deleteFilesIfLowOnSpace():
     hash.content.delete()
     hash.delete()
 
-def _freeSpaceInGb()
+def _freeSpaceInGb():
   statvfs = os.statvfs(settings.BASE_DIR)
   freespace = statvfs.f_frsize * statvfs.f_bfree
   freespaceGB = freespace / (1024.0 * 1024.0 * 1024.0)
