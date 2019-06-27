@@ -6,12 +6,15 @@ import hashlib
 import os
 import mimetypes
 
-for hash in Hash.objects.all():
-  if not os.path.isfile(hash.content.path):
-    for file in hash.file_set.all():
-      file.delete()
-    hash.content.delete()
-    hash.delete()
+try:
+  for hash in Hash.objects.all():
+    if not os.path.isfile(hash.content.path):
+      for file in hash.file_set.all():
+        file.delete()
+      hash.content.delete()
+      hash.delete()
+except Exception:
+  print("Failed to delete invalid file entries on boot")
 
 def files(request):
   if request.method == 'GET':
