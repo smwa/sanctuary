@@ -13,12 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.http import HttpResponse
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib.staticfiles.views import serve
 from sanctuary.views import index
+
+# To handle the android "captive portal" request
+def handler500(request):
+  res = HttpResponse(status=302)
+  res['Location'] = "http://" + settings.ALLOWED_HOSTS[0]
+  return res
+
+def handler400(request, exc):
+  res = HttpResponse(status=302)
+  res['Location'] = "http://" + settings.ALLOWED_HOSTS[0]
+  return res
 
 urlpatterns = [
   path('', index, name='index'),
