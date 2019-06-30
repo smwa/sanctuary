@@ -73,7 +73,7 @@ def download(request, id):
   filename = os.path.basename(file.label)
   contentType = mimetypes.guess_type(filename)
   response = HttpResponse(file.hash.content, content_type=contentType[0])
-  response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
+  response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
   return response
 
 def _deleteFilesIfLowOnSpace():

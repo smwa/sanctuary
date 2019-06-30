@@ -21,15 +21,17 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.views import serve
 from sanctuary.views import index
 
+captivePortalUrl = "http://{}/static/captive_portal.html".format(settings.ALLOWED_HOSTS[0])
+
 # To handle the android "captive portal" request
 def handler500(request):
   res = HttpResponse(status=302)
-  res['Location'] = "http://" + settings.ALLOWED_HOSTS[0]
+  res['Location'] = captivePortalUrl
   return res
 
 def handler400(request, exc):
   res = HttpResponse(status=302)
-  res['Location'] = "http://" + settings.ALLOWED_HOSTS[0]
+  res['Location'] = captivePortalUrl
   return res
 
 urlpatterns = [

@@ -30,7 +30,7 @@ SECRET_KEY = '5ri-)yjhu)#z6%=d$rbj9l*ya6+qm$hpqql%g9f%po#b4jcysi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["sanctuary"]
+ALLOWED_HOSTS = ["sanctuarydd.com"]
 
 
 # Application definition
