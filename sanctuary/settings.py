@@ -31,6 +31,8 @@ SECRET_KEY = '5ri-)yjhu)#z6%=d$rbj9l*ya6+qm$hpqql%g9f%po#b4jcysi'
 DEBUG = False
 
 ALLOWED_HOSTS = ["sanctuarydd.com"]
+if DEBUG:
+    ALLOWED_HOSTS = ["127.0.0.1"] + ALLOWED_HOSTS
 
 
 # Application definition
