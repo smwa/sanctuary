@@ -16,10 +16,12 @@ $(document).ready(function() {
         'render': $.fn.dataTable.render.ellipsis(40)
       },
       {
-        'title': 'Size'
+        'title': 'Size',
+        'render': function (data, type) { if (type === 'display') return _formatBytes(data); return data; }
       },
       {
         'title': 'Download',
+        'orderable': false,
         'render': function(id){
           var quotedUrl = '"api/files/' + id + '/"';
           return '<div class="btn-group">'
@@ -52,20 +54,20 @@ $(document).ready(function() {
         lastSeenFileId = file.id;
         filesTable.row.add([
           file.name,
-          _formatBytes(file.size),
+          file.size,
           file.id
         ]);
       });
       if (data.files.length > 0) {
         filesTable.draw('full-hold'); // Research and order, but keep page
       }
-      setTimeout(getNewFiles, 100);
+      setTimeout(getNewFiles, 2000);
     })
     .fail(function(jqxhr, statusText, errorThrown) {
       lastSeenFileId = 0;
       filesTable.clear().draw();
       console.log("Getting files failed:", statusText, errorThrown);
-      setTimeout(getNewFiles, 100);
+      setTimeout(getNewFiles, 2000);
     });    
   }
 

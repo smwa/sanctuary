@@ -8,12 +8,12 @@ $(document).ready(function() {
     },
     'data': [],
     'order': [[1, "asc"]],
-    'pageLength': 5,
-    'lengthMenu': [[5, 10, 25, 100, -1], [5, 10, 25, 100, "All"]],
+    'pageLength': 10,
+    'lengthMenu': [[10, 25, 100, -1], [10, 25, 100, "All"]],
     'columns': [
       {
         'title': '&nbsp;',
-        'render': $.fn.dataTable.render.ellipsis(170)
+        'render': $.fn.dataTable.render.ellipsis(500)
       },
       {
         'title': '#',
@@ -42,7 +42,7 @@ $(document).ready(function() {
       }
       $(".hide-when-offline").removeClass('d-none');
       $(".show-when-offline").addClass('d-none');
-      setTimeout(getChatMessages, 100);
+      setTimeout(getChatMessages, 2000);
     })
     .fail(function(jqxhr, statusText, errorThrown) {
       console.log("Getting chat failed:", statusText, errorThrown);
@@ -50,7 +50,7 @@ $(document).ready(function() {
       chatTable.clear().draw();
       $(".show-when-offline").removeClass('d-none');
       $(".hide-when-offline").addClass('d-none');
-      setTimeout(getChatMessages, 100);
+      setTimeout(getChatMessages, 2000);
     });
   }
 

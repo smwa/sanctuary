@@ -26,13 +26,6 @@ def _get(request):
     lastSeenId = int(request.GET.get('lastSeenId', 0))
     files = File.objects.all().filter(id__gt=lastSeenId).order_by('id')
 
-    longPollingSecondsRemaining = 30.0
-    SLEEP_INTERVAL = 0.5
-    while files.count() < 1 and longPollingSecondsRemaining > 0.0:
-      sleep(SLEEP_INTERVAL)
-      longPollingSecondsRemaining -= SLEEP_INTERVAL
-      files = File.objects.all().filter(id__gt=lastSeenId).order_by('id')
-
     ret = []
     for file in files[0:1000]:
       ret.append({
@@ -72,8 +65,9 @@ def download(request, id):
     return HttpResponse("Invalid file", status=400)
   filename = os.path.basename(file.label)
   contentType = mimetypes.guess_type(filename)
-  response = HttpResponse(file.hash.content, content_type=contentType[0])
+  response = HttpResponse("", content_type=contentType[0])
   response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
+  response['X-Accel-Redirect'] = "/{}".format(file.hash.content.name)
   return response
 
 def _deleteFilesIfLowOnSpace():

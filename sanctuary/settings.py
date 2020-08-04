@@ -32,7 +32,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["sanctuarydd.com"]
 if DEBUG:
-    ALLOWED_HOSTS = ["127.0.0.1"] + ALLOWED_HOSTS
+    ALLOWED_HOSTS = ["127.0.0.1", "localhost"] + ALLOWED_HOSTS
 
 
 # Application definition
@@ -84,6 +84,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/static")
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
